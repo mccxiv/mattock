@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "plow": "ts-node packages/plow/index.ts",
-    "plow-ui": ""
+    "plow": "npm run start -w plow",
+    "plow-ui": "npm run dev -w plow-ui"
   }
 }
