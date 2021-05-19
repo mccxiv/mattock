@@ -6,7 +6,7 @@ import { cleanUpStatProcesses, recordProcessMetadataToFile } from './lib/stats'
 import { plotterProcesses } from './lib/processes'
 import { generateJobIdentifier } from './lib/util'
 
-const CONFIG_FILE = path.join(__dirname, '../config.json')
+const CONFIG_FILE = path.join(__dirname, '../../config.json')
 
 init()
 

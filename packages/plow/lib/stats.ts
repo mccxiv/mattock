@@ -3,7 +3,7 @@ import * as psList from 'ps-list'
 import * as path from 'path'
 import { plotterProcesses } from './processes'
 
-const STATS_FILE = path.join(__dirname, '../../stats.json')
+const STATS_FILE = path.join(__dirname, '../../../stats.json')
 
 export async function recordProcessMetadataToFile(parentPid: number, jobId: string) {
   const plotters = await plotterProcesses()

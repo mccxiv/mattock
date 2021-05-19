@@ -1,18 +1,12 @@
 {
-  "name": "tractor",
+  "name": "plow",
   "version": "1.0.0",
-  "description": "A Chia plot manager",
-  "main": "index.js",
+  "description": "Plow: A Chia plotting manager",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "ts-node src/index.ts"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@types/jsonfile": "^6.0.0",
-    "execa": "^5.0.0",
-    "jsonfile": "^6.1.0",
-    "ps-list": "^7.2.0",
-    "ts-node": "^9.1.1"
+    "plow": "ts-node packages/plow/index.ts",
+    "plow-ui": ""
   }
 }

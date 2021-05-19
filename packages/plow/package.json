@@ -1,0 +1,16 @@
+{
+  "name": "@plow/manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "plow": "../../node_modules/.bin/ts-node src/plow/index.ts",
+    "plow": "../../node_modules/.bin/ts-node src/plow/index.ts"
+  },
+  "dependencies": {
+    "@types/jsonfile": "^6.0.0",
+    "execa": "^5.0.0",
+    "jsonfile": "^6.1.0",
+    "ps-list": "^7.2.0",
+    "ts-node": "^9.1.1"
+  }
+}
