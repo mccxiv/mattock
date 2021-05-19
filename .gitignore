@@ -1,5 +1,6 @@
 stats.json
 config.json
+logs/*.log
 
 node_modules
 .idea
