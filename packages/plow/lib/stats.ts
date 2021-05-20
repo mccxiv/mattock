@@ -1,12 +1,12 @@
 import { readFileSync, writeFileSync } from 'jsonfile'
 import * as psList from 'ps-list'
 import * as path from 'path'
-import { plotterProcesses } from './processes'
+import { getPlotterProcesses } from './processes'
 
-const STATS_FILE = path.join(__dirname, '../../../stats.json')
+const STATS_FILE = path.resolve(__dirname, '../../../stats.json')
 
 export async function recordProcessMetadataToFile(parentPid: number, jobId: string) {
-  const plotters = await plotterProcesses()
+  const plotters = await getPlotterProcesses()
   const child = plotters.find(p => p.ppid === parentPid)
   if (!child) return console.error(Error('NoProcessSpawned'))
   const stats = getStats()
@@ -28,7 +28,7 @@ export function cleanUpStatProcesses(plotters: psList.ProcessDescriptor[]) {
   saveStats(stats)
 }
 
-function getStats() {
+export function getStats() {
   return readFileSync(STATS_FILE)
 }
 

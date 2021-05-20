@@ -1,3 +1,9 @@
+import { readFileSync } from 'jsonfile'
+import * as path from 'path'
+
+const CONFIG_FILE = path.join(__dirname, '../../../config.json')
+
+
 export function generateJobIdentifier(job: any): string {
   const date = new Date()
 
@@ -17,4 +23,8 @@ function pad2(num: number): string {
 
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min)
+}
+
+export function getConfig () {
+  return readFileSync(CONFIG_FILE)
 }
