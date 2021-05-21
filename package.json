@@ -1,12 +1,12 @@
 {
-  "name": "plow",
+  "name": "mattock",
   "version": "1.0.0",
-  "description": "Plow: A Chia plotting manager",
+  "description": "Mattock for Chia: a plotting manager",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "plow": "npm run start -w plow",
-    "plow-ui": "npm run dev -w plow-ui"
+    "mattock": "npm run start -w mattock-server",
+    "mattock-ui": "npm run dev -w mattock-ui"
   }
 }
