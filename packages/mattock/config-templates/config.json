@@ -1,0 +1,13 @@
+{
+  "chiaExecutable": "chia",
+  "maxConcurrentGlobal": 8,
+  "maxConcurrentPhase1": 3,
+  "jobs": [
+    {
+      "name": "SSD1",
+      "concurrent": 0,
+      "temporaryDirectory": "E:/tmp/",
+      "destinationDirectory": "F:/"
+    }
+  ]
+}

@@ -1,8 +1,5 @@
 import { readFileSync } from 'jsonfile'
-import * as path from 'path'
-
-const CONFIG_FILE = path.join(__dirname, '../../../config.json')
-
+import { CONFIG_FILE } from '../constants'
 
 export function generateJobIdentifier(job: any): string {
   const date = new Date()

@@ -4,8 +4,7 @@ import { getPlotterProcesses } from './processes'
 import * as path from 'path'
 import * as fs from 'fs'
 import { getStats } from './stats'
-
-const LOGS_FOLDER = path.resolve(__dirname, '../../../logs/')
+import { LOGS_DIR } from '../constants'
 
 export async function getState(): Promise<PlottingState> {
   const config = getConfig()
@@ -41,7 +40,7 @@ export async function getState(): Promise<PlottingState> {
 }
 
 export function getLogInfo(config: any, jobId: string): LogInfo {
-  const filename = path.resolve(LOGS_FOLDER, `${jobId}.log`)
+  const filename = path.resolve(LOGS_DIR, `${jobId}.log`)
   const log = fs.readFileSync(filename, { encoding: 'utf-8' })
   const lines = splitLines(log)
   const startTime = findStartTime(lines)

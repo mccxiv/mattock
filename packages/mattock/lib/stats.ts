@@ -1,9 +1,7 @@
 import { readFileSync, writeFileSync } from 'jsonfile'
 import * as psList from 'ps-list'
-import * as path from 'path'
 import { getPlotterProcesses } from './processes'
-
-const STATS_FILE = path.resolve(__dirname, '../../../stats.json')
+import { STATS_FILE } from '../constants'
 
 export async function recordProcessMetadataToFile(parentPid: number, jobId: string) {
   const plotters = await getPlotterProcesses()

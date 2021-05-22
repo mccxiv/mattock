@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "mattock": "npm run start -w mattock-server",
+    "mattock": "npm run start -w mattock-server -- --dev",
     "mattock-ui": "npm run dev -w mattock-ui"
   }
 }

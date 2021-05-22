@@ -1,6 +1,4 @@
-stats.json
-config.json
-logs/*.log
+dev-config
 
 node_modules
 .idea
