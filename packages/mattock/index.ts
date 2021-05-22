@@ -4,29 +4,40 @@ import * as path from 'path'
 import { cleanUpStatProcesses, recordProcessMetadataToFile } from './lib/stats'
 import { getPlotterProcesses } from './lib/processes'
 import { generateJobIdentifier, getConfig } from './lib/util'
+import { renderCli } from './lib/cli'
 import { getState } from './lib/state'
+import { PlottingState } from './types/types'
 
 init()
 
 async function init () {
-  await tick()
-  setInterval(tick, 30000)
+  managerTick()
+  setInterval(managerTick, 30000)
+
+  renderCli()
+  setInterval(renderCli, 10000)
 }
 
-async function tick () {
+async function managerTick () {
   const config = getConfig()
+  const state = await getState()
   const plotters = await getPlotterProcesses()
   cleanUpStatProcesses(plotters)
   config.jobs.forEach(job => {
-    maybeSpawnPlotter(config, plotters, job)
+    maybeSpawnPlotter(config, state, job)
   })
-  console.log(JSON.stringify(await getState(), null, 2))
-  console.log('...')
 }
 
-function maybeSpawnPlotter (config: any, plotters: psList.ProcessDescriptor[], job: any) {
-  const freeSlots = Math.max(0, job.concurrent - plotters.length)
+function maybeSpawnPlotter (config: any, state: PlottingState, job: any) {
+  const liveJobs = state.plotters.filter(p => p.job === job.name).length
+  const unknownJobs = state.plotters.filter(p => !p.job).length
+
+  // Err on the safest side and assume unknown jobs are the same as this job
+  // so that we don't overload the temp drive.
+  const freeSlots = Math.max(0, job.concurrent - (liveJobs + unknownJobs))
+
   if (freeSlots <= 0) return
+
   const jobId = generateJobIdentifier(job)
   console.log('Spawning new plotter:', jobId)
   const command = [
@@ -37,13 +48,10 @@ function maybeSpawnPlotter (config: any, plotters: psList.ProcessDescriptor[], j
     '>', path.resolve(__dirname, '../../logs/', `${jobId}.log`)
   ].join(' ')
 
-  console.log('Command:', command)
-
   const {pid: parentPid} = execa.command(
     command,
-    {cleanup: false, shell: true, detached: true}
+    {cleanup: true, shell: true, detached: false}
   )
-  console.log(22, parentPid)
   setTimeout(() => recordProcessMetadataToFile(parentPid, jobId), 5000)
 }
 

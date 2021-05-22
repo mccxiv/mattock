@@ -3,7 +3,6 @@ import { getConfig } from './util'
 import { getPlotterProcesses } from './processes'
 import * as path from 'path'
 import * as fs from 'fs'
-// import splitLines from 'split-lines'
 import { getStats } from './stats'
 
 const LOGS_FOLDER = path.resolve(__dirname, '../../../logs/')
@@ -41,7 +40,7 @@ export async function getState(): Promise<PlottingState> {
   return { plotters: [...plotters, ...unknown] }
 }
 
-function getLogInfo(config: any, jobId: string): LogInfo {
+export function getLogInfo(config: any, jobId: string): LogInfo {
   const filename = path.resolve(LOGS_FOLDER, `${jobId}.log`)
   const log = fs.readFileSync(filename, { encoding: 'utf-8' })
   const lines = splitLines(log)
