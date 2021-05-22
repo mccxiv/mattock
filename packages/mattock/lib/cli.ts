@@ -6,11 +6,12 @@ export async function renderCli() {
 
   console.clear()
   o('___ Plotters: ___________________________________________________________')
+  o('\tpid\tphase\tpct\ttime\tjob')
   state.plotters.filter(p => p.active).forEach(plotter => {
-    if (plotter.job) {
-      o(`- ${plotter.pid}\t   Phase ${plotter.phase}, ${plotter.progress}%\tJob: ${plotter.job}`)
+    if (plotter.jobId) {
+      o(`-\t${plotter.pid}\t${plotter.phase}\t${plotter.progress}%\t${plotter.elapsed}\t${plotter.jobName}`)
     } else {
-      o(`- ${plotter.pid}\t   No info because it was started externally`)
+      o(`-\t${plotter.pid}\tNo info because it was started externally`)
     }
   })
 }

@@ -25,3 +25,12 @@ function getRandom(min, max) {
 export function getConfig () {
   return readFileSync(CONFIG_FILE)
 }
+
+export function msToTime(duration) {
+  const minutes = Math.floor((duration / (1000 * 60)) % 60)
+  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
+
+  const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
+
+  return hours + ":" + minutesPadded
+}

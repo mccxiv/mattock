@@ -1,10 +1,11 @@
+import * as path from 'path'
+import * as execa from 'execa'
 import { generateJobIdentifier, getConfig } from './util'
 import { getState } from './state'
 import { getPlotterProcesses } from './processes'
 import { cleanUpStatProcesses, recordProcessMetadataToFile } from './stats'
 import { PlottingState } from '../types/types'
-import * as path from 'path'
-import * as execa from 'execa'
+import { LOGS_DIR } from '../constants'
 
 export async function managerTick() {
   const config = getConfig()
@@ -20,8 +21,8 @@ export async function managerTick() {
 }
 
 function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
-  const liveJobs = state.plotters.filter(p => p.job === job.name).length
-  const unknownJobs = state.plotters.filter(p => !p.job).length
+  const liveJobs = state.plotters.filter(p => p.jobName === job.name).length
+  const unknownJobs = state.plotters.filter(p => !p.jobId).length
 
   // Err on the safest side and assume unknown jobs are the same as this job
   // so that we don't overload the temp drive.
@@ -30,13 +31,12 @@ function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
   if (freeSlots <= 0) return
 
   const jobId = generateJobIdentifier(job)
-  console.log('Spawning new plotter:', jobId)
   const command = [
-    config.chia_executable,
+    config.chiaExecutable,
     'plots', 'create',
-    '-t', path.resolve(job.temp_dir, `${jobId}`),
-    '-d', path.resolve(job.dest_dir),
-    '>', path.resolve(__dirname, '../../logs/', `${jobId}.log`)
+    '-t', path.resolve(job.temporaryDirectory, `${jobId}`),
+    '-d', path.resolve(job.destinationDirectory),
+    '>', path.resolve(LOGS_DIR, `${jobId}.log`)
   ].join(' ')
 
   const { pid: parentPid } = execa.command(

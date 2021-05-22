@@ -1,7 +1,7 @@
 {
   "name": "mattock",
   "version": "1.0.0",
-  "description": "Mattock for Chia: a plotting manager",
+  "description": "Mattock. A Chia plotting tool",
   "workspaces": [
     "packages/*"
   ],

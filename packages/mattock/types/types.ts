@@ -3,10 +3,12 @@ export interface PlottingState {
 }
 
 export interface PlottingJob {
-  job?: string
+  jobId?: string
+  jobName?: string
   active: boolean
   pid?: number
   startTime?: string
+  elapsed?: string
   endTime?: string
   phase?: 1 | 2 | 3 | 4 | 5
   progress?: number

@@ -1,5 +1,5 @@
 import { LogInfo, PlottingJob, PlottingState } from '../types/types'
-import { getConfig } from './util'
+import { getConfig, msToTime } from './util'
 import { getPlotterProcesses } from './processes'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -17,11 +17,14 @@ export async function getState(): Promise<PlottingState> {
   const plotterPromises: Promise<PlottingJob>[] = recognized.map(async process => {
     const jobId = stats.processes[process.pid]
     const logInfo = await getLogInfo(config, jobId)
+    const elapsedMs = logInfo.startTime ? Date.now() - new Date(logInfo.startTime).getTime() : undefined
     return {
-      job: jobId,
+      jobId,
+      jobName: jobId.split('-')[2],
       active: true,
       pid: process.pid,
       startTime: logInfo.startTime,
+      elapsed: elapsedMs ? msToTime(elapsedMs) : undefined,
       phase: logInfo.phase,
       progress: Math.round(((logInfo.lines / 2620) * 100) * 100) / 100
     }

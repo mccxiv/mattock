@@ -7,9 +7,9 @@ init()
 async function init () {
   if (needsSetup()) firstTimeConfigSetup()
 
-  // managerTick()
-  // renderCli()
-  //
-  // setInterval(managerTick, 30000)
-  // setInterval(renderCli, 10000)
+  managerTick()
+  renderCli()
+
+  setInterval(managerTick, 30000)
+  setInterval(renderCli, 10000)
 }
