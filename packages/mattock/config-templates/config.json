@@ -10,7 +10,8 @@
       "destinationDirectory": "F:/",
       "maxThreads": 4,
       "maxMemory": null,
-      "disableBitfield": false
+      "disableBitfield": false,
+      "doNotWaitForPhase5": true
     }
   ]
 }

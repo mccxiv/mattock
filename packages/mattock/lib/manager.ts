@@ -21,12 +21,20 @@ export async function managerTick() {
 }
 
 function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
-  const liveJobs = state.plotters.filter(p => p.jobName === job.name).length
+  const liveJobs = state.plotters.filter(p => p.jobName === job.name)
   const unknownJobs = state.plotters.filter(p => !p.jobId).length
 
   // Err on the safest side and assume unknown jobs are the same as this job
   // so that we don't overload the temp drive.
-  const freeSlots = Math.max(0, job.concurrent - (liveJobs + unknownJobs))
+  let currentJobsCalculated = liveJobs.length + unknownJobs
+
+  if (config.doNotWaitForPhase5) {
+    const liveJobsInP5 = liveJobs.filter(p => p.phase === 5)
+    currentJobsCalculated -= liveJobsInP5.length
+  }
+
+  // Clamp to 0 in case math got weird and went negative due to external jobs
+  const freeSlots = Math.max(0, job.concurrent - currentJobsCalculated)
 
   if (freeSlots <= 0) return
 
