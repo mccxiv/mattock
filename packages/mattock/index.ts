@@ -9,13 +9,14 @@ async function init () {
   if (needsSetup()) firstTimeConfigSetup()
   if (isJustCheckingVersion()) return console.log(VERSION)
 
-  managerTick()
-  renderCli()
+  await renderCli()
+  await runManagerAndRefreshUI()
+  setInterval(runManagerAndRefreshUI, 15000)
+}
 
-  setInterval(async () => {
-    try {await managerTick()} catch (e) {console.log(e)}
-    setTimeout(async () => {
-      try {await renderCli()} catch (e) {console.log(e)}
-    }, 4000)
-  }, 15000)
+async function runManagerAndRefreshUI () {
+  try {await managerTick()} catch (e) {console.log(e)}
+  setTimeout(async () => {
+    try {await renderCli()} catch (e) {console.log(e)}
+  }, 4000)
 }
