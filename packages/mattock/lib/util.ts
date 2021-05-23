@@ -1,3 +1,4 @@
+import * as path from 'path'
 import { readFileSync } from 'jsonfile'
 import { CONFIG_FILE } from '../constants'
 
@@ -33,4 +34,9 @@ export function msToTime(duration) {
   const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
 
   return hours + ":" + minutesPadded
+}
+
+export function printVersion () {
+  const packageJson = require(path.resolve(__dirname, '../../../package.json'))
+  console.log(packageJson.version)
 }

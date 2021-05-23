@@ -1,9 +1,9 @@
 {
   "name": "mattock-server",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts"
+    "dev": "ts-node index.ts --dev"
   },
   "dependencies": {
     "@types/jsonfile": "^6.0.0",

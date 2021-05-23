@@ -1,12 +1,19 @@
 {
   "name": "mattock",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Mattock. A Chia plotting tool",
+  "bin":{
+    "mattock": "packages/mattock/bin/mattock.js"
+  },
   "workspaces": [
     "packages/*"
   ],
+  "files": [
+    "npm-shrinkwrap.json",
+    "packages/mattock/**"
+  ],
   "scripts": {
-    "mattock": "npm run start -w mattock-server -- --dev",
+    "dev": "npm run dev -w mattock-server",
     "mattock-ui": "npm run dev -w mattock-ui"
   }
 }
