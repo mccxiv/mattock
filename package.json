@@ -1,25 +1,14 @@
 {
-  "name": "mattock",
-  "version": "0.1.0",
-  "description": "Mattock. A Chia plotting tool",
+  "name": "mattock-repo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "The main repo for Mattock",
   "license" : "AGPL-3.0-only",
-  "author": {
-    "name": "Andrea Stella",
-    "email": "adr.stella@gmail.com"
-  },
-  "bin":{
-    "mattock": "packages/mattock/bin/mattock.js"
-  },
   "workspaces": [
     "packages/*"
   ],
-  "files": [
-    "LICENSE",
-    "npm-shrinkwrap.json",
-    "packages/mattock/**"
-  ],
   "scripts": {
-    "dev": "npm run dev -w mattock-server",
+    "dev": "npm run dev -w mattock",
     "mattock-ui": "npm run dev -w mattock-ui"
   }
 }
