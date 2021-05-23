@@ -37,6 +37,6 @@ export function msToTime(duration) {
 }
 
 export function printVersion () {
-  const packageJson = require(path.resolve(__dirname, '../../../package.json'))
+  const packageJson = require(path.resolve(__dirname, '../package.json'))
   console.log(packageJson.version)
 }
