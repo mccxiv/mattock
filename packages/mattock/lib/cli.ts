@@ -1,5 +1,5 @@
 import { getState } from './state'
-import { CONFIG_FILE } from '../constants'
+import { CONFIG_FILE, VERSION } from '../constants'
 import { getConfig } from './util'
 
 export async function renderCli() {
@@ -10,7 +10,7 @@ export async function renderCli() {
   const totalConcurrency = config.jobs.reduce((acc, job) => acc + job.concurrent, 0)
 
   console.clear()
-  o('------- Plotters: ------------------------------------------------------------')
+  o(`------- Plotters: ------------------------------------------------- v${VERSION} ---`)
   o('   #\tpid\tphase\tpct\ttime\tjob')
   o('------------------------------------------------------------------------------')
   activePlotters.forEach((plotter, i) => {

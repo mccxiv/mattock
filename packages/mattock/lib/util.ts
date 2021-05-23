@@ -1,6 +1,6 @@
 import * as path from 'path'
 import { readFileSync } from 'jsonfile'
-import { CONFIG_FILE } from '../constants'
+import { CONFIG_FILE, VERSION } from '../constants'
 
 export function generateJobIdentifier(job: any): string {
   const date = new Date()
@@ -37,6 +37,5 @@ export function msToTime(duration) {
 }
 
 export function printVersion () {
-  const packageJson = require(path.resolve(__dirname, '../package.json'))
-  console.log(packageJson.version)
+
 }

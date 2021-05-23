@@ -9,4 +9,5 @@ export const CONFIG_DIR = process.argv.includes('--dev')
 export const CONFIG_FILE = path.resolve(CONFIG_DIR, 'config.json')
 export const STATS_FILE = path.resolve(CONFIG_DIR, 'stats.json')
 export const LOGS_DIR = path.resolve(CONFIG_DIR, 'logs')
+export const VERSION = require(path.resolve(__dirname, './package.json')).version
 
