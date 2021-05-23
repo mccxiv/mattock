@@ -1,14 +1,17 @@
 {
   "name": "mattock",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
-      "version": "1.0.0",
+      "version": "0.1.0",
       "workspaces": [
         "packages/*"
-      ]
+      ],
+      "bin": {
+        "mattock": "packages/mattock/bin/mattock.js"
+      }
     },
     "node_modules/@babel/helper-validator-identifier": {
       "version": "7.14.0",
@@ -1167,7 +1170,7 @@
     },
     "packages/mattock": {
       "name": "mattock-server",
-      "version": "1.0.0",
+      "version": "0.0.0",
       "dependencies": {
         "@types/jsonfile": "^6.0.0",
         "execa": "^5.0.0",
