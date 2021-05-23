@@ -13,7 +13,7 @@ export async function managerTick() {
   const plotters = await getPlotterProcesses()
   cleanUpStatProcesses(plotters)
   if (plotters.length >= config.maxConcurrentGlobal) return
-  const phase1Count = state.plotters.filter(p => p.phase === 1)
+  const phase1Count = state.plotters.filter(p => p.phase === 1).length
   if (phase1Count >= config.maxConcurrentPhase1) return
   config.jobs.forEach(job => {
     maybeSpawnPlotter(config, state, job)
@@ -43,5 +43,5 @@ function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
     command,
     { cleanup: true, shell: true, detached: false }
   )
-  setTimeout(() => recordProcessMetadataToFile(parentPid, jobId), 5000)
+  setTimeout(() => recordProcessMetadataToFile(parentPid, jobId), 2000)
 }
