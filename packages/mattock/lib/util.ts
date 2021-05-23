@@ -1,6 +1,5 @@
-import * as path from 'path'
 import { readFileSync } from 'jsonfile'
-import { CONFIG_FILE, VERSION } from '../constants'
+import { CONFIG_FILE } from '../constants'
 
 export function generateJobIdentifier(job: any): string {
   const date = new Date()
@@ -34,8 +33,4 @@ export function msToTime(duration) {
   const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
 
   return hours + ":" + minutesPadded
-}
-
-export function printVersion () {
-
 }

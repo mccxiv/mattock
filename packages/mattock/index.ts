@@ -12,8 +12,10 @@ async function init () {
   managerTick()
   renderCli()
 
-  setInterval(() => {
-    managerTick()
-    setTimeout(renderCli, 4000)
+  setInterval(async () => {
+    try {await managerTick()} catch (e) {console.log(e)}
+    setTimeout(async () => {
+      try {await renderCli()} catch (e) {console.log(e)}
+    }, 4000)
   }, 15000)
 }

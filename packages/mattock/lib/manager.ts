@@ -36,6 +36,9 @@ function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
     'plots', 'create',
     '-t', path.resolve(job.temporaryDirectory, `${jobId}`),
     '-d', path.resolve(job.destinationDirectory),
+    ...(job.maxThreads ? ['-r', String(job.maxThreads)] : []),
+    ...(job.maxMemory ? ['-b', String(job.maxMemory)] : []),
+    ...(job.disableBitfield ? ['-e'] : []),
     '>', path.resolve(LOGS_DIR, `${jobId}.log`)
   ].join(' ')
 
