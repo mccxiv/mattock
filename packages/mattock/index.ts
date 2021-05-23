@@ -12,6 +12,8 @@ async function init () {
   managerTick()
   renderCli()
 
-  setInterval(managerTick, 30000)
-  setInterval(renderCli, 10000)
+  setInterval(() => {
+    managerTick()
+    setTimeout(renderCli, 4000)
+  }, 15000)
 }
