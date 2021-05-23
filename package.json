@@ -2,6 +2,10 @@
   "name": "mattock",
   "version": "0.1.0",
   "description": "Mattock. A Chia plotting tool",
+  "author": {
+    "name": "Andrea Stella",
+    "email": "adr.stella@gmail.com"
+  },
   "bin":{
     "mattock": "packages/mattock/bin/mattock.js"
   },
