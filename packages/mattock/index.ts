@@ -1,6 +1,6 @@
 import { isJustCheckingVersion, renderCli } from './lib/cli'
-import { managerTick } from './lib/manager'
 import { firstTimeConfigSetup, needsSetup } from './lib/setup'
+import { managerTick } from './lib/manager'
 import { printVersion } from './lib/util'
 
 init()
