@@ -1,3 +1,4 @@
+<img align="center" src="./assets/mattock.png">
 <h2 align="center">Mattock, a Chia plotting tool</h2>
 
 A mattock /ˈmætək/ is a hand tool used for digging, prying, and chopping. Similar to the pickaxe, it has a long handle and a stout head which combines either a vertical axe blade with a horizontal adze (cutter mattock), or a pick and an adze (pick mattock). A cutter mattock is similar to a Pulaski. The adze of a mattock is useful for digging or hoeing, especially in hard soil.
