@@ -11,18 +11,18 @@ export async function renderCli() {
 
   console.clear()
   o(`------- Plotters: ------------------------------------------------- v${VERSION} ---`)
-  o('   #\tpid\tphase\tpct\ttime\tjob')
+  o(' pid\tphase\tpct\ttime\tjob\t   id')
   o('------------------------------------------------------------------------------')
-  activePlotters.forEach((plotter, i) => {
+  activePlotters.forEach((plotter) => {
     if (plotter.jobId) {
-      o(`   ${i}\t${plotter.pid}\t${plotter.phase}\t${plotter.progress}%\t${plotter.elapsed}\t${plotter.jobName}`)
+      o(` ${plotter.pid}\t  ${plotter.phase}\t${plotter.progress}%\t${plotter.elapsed}\t${plotter.jobName}\t   ${plotter.jobId}`)
     } else {
-      o(`   ${i}\t${plotter.pid}\tNo info because it was started by another program`)
+      o(` ${plotter.pid}\tNo info because it was started by another program`)
     }
   })
   if (activePlotters.length === 0) {
     o('')
-    o('\tNo plotters are running.')
+    o(' No plotters are running.')
     o('')
   }
   o('------------------------------------------------------------------------------')
