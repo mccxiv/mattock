@@ -70,16 +70,15 @@ function findTempDirFromLog(lines: string[]) {
 }
 
 function findCurrentPhase(lines: string[]) {
-  let highestPhase = '1'
+  let currentPhase = 1
   const phaseCompletionString = 'Time for phase '
   lines.forEach(line => {
     if (line.startsWith(phaseCompletionString)) {
       const highest = line.split(phaseCompletionString).pop()?.split(' ').shift()
-      if (highest) highestPhase = highest
+      if (highest) currentPhase = Number(highest) + 1
     }
   })
-  const phase = Number(highestPhase)
-  switch (phase) {
+  switch (currentPhase) {
     case 1:
       return 1
     case 2:
@@ -88,6 +87,8 @@ function findCurrentPhase(lines: string[]) {
       return 3
     case 4:
       return 4
+    case 5:
+      return 5
     default:
       return 1
   }

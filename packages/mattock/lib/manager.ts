@@ -28,6 +28,7 @@ function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
   // so that we don't overload the temp drive.
   let currentJobsCalculated = liveJobs.length + unknownJobs
 
+  // Phase 5 uses almost no resources so it should be ignored most times
   if (config.doNotWaitForPhase5) {
     const liveJobsInP5 = liveJobs.filter(p => p.phase === 5)
     currentJobsCalculated -= liveJobsInP5.length
