@@ -1,5 +1,6 @@
 import { readFileSync } from 'jsonfile'
 import { CONFIG_FILE } from '../constants'
+import { MattockConfig } from '../types/types'
 
 export function generateJobIdentifier(job: any): string {
   const date = new Date()
@@ -22,7 +23,7 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min)
 }
 
-export function getConfig () {
+export function getConfig (): MattockConfig {
   return readFileSync(CONFIG_FILE)
 }
 

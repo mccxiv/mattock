@@ -4,7 +4,7 @@ import { generateJobIdentifier, getConfig } from './util'
 import { getState } from './state'
 import { getPlotterProcesses } from './processes'
 import { cleanUpStatProcesses, recordProcessMetadataToFile } from './stats'
-import { PlottingState } from '../types/types'
+import { MattockConfig, PlottingState } from '../types/types'
 import { LOGS_DIR } from '../constants'
 
 export async function managerTick() {
@@ -20,7 +20,7 @@ export async function managerTick() {
   })
 }
 
-function maybeSpawnPlotter(config: any, state: PlottingState, job: any) {
+function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: MattockConfig['jobs'][number]) {
   const liveJobs = state.plotters.filter(p => p.jobName === job.name)
   const unknownJobs = state.plotters.filter(p => !p.jobId).length
 

@@ -1,4 +1,9 @@
-import { LogInfo, PlottingJob, PlottingState } from '../types/types'
+import {
+  LogInfo,
+  MattockConfig,
+  PlottingJob,
+  PlottingState
+} from '../types/types'
 import { getConfig, msToTime } from './util'
 import { getPlotterProcesses } from './processes'
 import * as path from 'path'
@@ -42,7 +47,7 @@ export async function getState(): Promise<PlottingState> {
   return { plotters: [...plotters, ...unknown] }
 }
 
-export function getLogInfo(config: any, jobId: string): LogInfo {
+export function getLogInfo(config: MattockConfig, jobId: string): LogInfo {
   const filename = path.resolve(LOGS_DIR, `${jobId}.log`)
   const log = fs.readFileSync(filename, { encoding: 'utf-8' })
   const lines = splitLines(log)

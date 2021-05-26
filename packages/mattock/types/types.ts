@@ -25,3 +25,21 @@ export interface LogInfo {
   p4Time?: number
   lines: number
 }
+
+export interface MattockConfig {
+  "chiaExecutable": string
+  "maxConcurrentGlobal": number
+  "maxConcurrentPhase1": number
+  "farmerPublicKey": string | null
+  "poolPublicKey": string |null
+  "jobs": {
+    "name": string
+    "concurrent": number
+    "temporaryDirectory": string
+    "destinationDirectory": string
+    "maxThreads": number | null
+    "maxMemory": number | null
+    "disableBitfield": boolean
+    "doNotWaitForPhase5": boolean
+  }[]
+}
