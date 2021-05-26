@@ -48,6 +48,8 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
     ...(job.maxThreads ? ['-r', String(job.maxThreads)] : []),
     ...(job.maxMemory ? ['-b', String(job.maxMemory)] : []),
     ...(job.disableBitfield ? ['-e'] : []),
+    ...(config.farmerPublicKey ? ['-f', config.farmerPublicKey] : []),
+    ...(config.poolPublicKey ? ['-p', config.poolPublicKey] : []),
     '>', path.resolve(LOGS_DIR, `${jobId}.log`)
   ].join(' ')
 
