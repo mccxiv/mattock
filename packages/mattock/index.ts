@@ -9,7 +9,7 @@ async function init () {
   if (needsSetup()) firstTimeConfigSetup()
   if (isJustCheckingVersion()) return console.log(VERSION)
 
-  await renderCli()
+  console.log('Mattock is starting...')
   await runManagerAndRefreshUI()
   setInterval(runManagerAndRefreshUI, 15000)
 }

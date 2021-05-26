@@ -11,6 +11,8 @@ import * as fs from 'fs'
 import { getStats } from './stats'
 import { LOGS_DIR } from '../constants'
 
+export const problems: string[] = []
+
 export async function getState(): Promise<PlottingState> {
   const config = getConfig()
   const stats = getStats()
@@ -19,21 +21,23 @@ export async function getState(): Promise<PlottingState> {
   const recognized = processes.filter(p => knownPids.includes(String(p.pid)))
   const unrecognized = processes.filter(p => !knownPids.includes(String(p.pid)))
 
-  const plotterPromises: Promise<PlottingJob>[] = recognized.map(async process => {
-    const jobId = stats.processes[process.pid]
-    const logInfo = await getLogInfo(config, jobId)
-    const elapsedMs = logInfo.startTime ? Date.now() - new Date(logInfo.startTime).getTime() : undefined
-    return {
-      jobId,
-      jobName: jobId.split('-')[2],
-      active: true,
-      pid: process.pid,
-      startTime: logInfo.startTime,
-      elapsed: elapsedMs ? msToTime(elapsedMs) : undefined,
-      phase: logInfo.phase,
-      progress: Math.round(((logInfo.lines / 2620) * 100) * 100) / 100
-    }
-  })
+  const plotterPromises: Promise<PlottingJob>[] = !config
+    ? []
+    : recognized.map(async process => {
+      const jobId = stats.processes[process.pid]
+      const logInfo = await getLogInfo(config, jobId)
+      const elapsedMs = logInfo.startTime ? Date.now() - new Date(logInfo.startTime).getTime() : undefined
+      return {
+        jobId,
+        jobName: jobId.split('-')[2],
+        active: true,
+        pid: process.pid,
+        startTime: logInfo.startTime,
+        elapsed: elapsedMs ? msToTime(elapsedMs) : undefined,
+        phase: logInfo.phase,
+        progress: Math.round(((logInfo.lines / 2620) * 100) * 100) / 100
+      }
+    })
 
   const plotters = await Promise.all(plotterPromises)
 

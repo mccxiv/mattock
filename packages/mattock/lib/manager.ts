@@ -1,17 +1,24 @@
 import * as path from 'path'
 import * as execa from 'execa'
 import { generateJobIdentifier, getConfig } from './util'
-import { getState } from './state'
+import { getState, problems } from './state'
 import { getPlotterProcesses } from './processes'
 import { cleanUpStatProcesses, recordProcessMetadataToFile } from './stats'
 import { MattockConfig, PlottingState } from '../types/types'
 import { LOGS_DIR } from '../constants'
+import { isConfigValid } from './validation'
 
 export async function managerTick() {
-  const config = getConfig()
-  const state = await getState()
   const plotters = await getPlotterProcesses()
   cleanUpStatProcesses(plotters)
+
+  problems.splice(0)
+  const config = getConfig()
+  if (!config) return
+  const configValid = isConfigValid(config)
+  if (!configValid) return
+
+  const state = await getState()
   if (plotters.length >= config.maxConcurrentGlobal) return
   const phase1Count = state.plotters.filter(p => p.phase === 1).length
   if (phase1Count >= config.maxConcurrentPhase1) return
@@ -21,6 +28,7 @@ export async function managerTick() {
 }
 
 function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: MattockConfig['jobs'][number]) {
+
   const liveJobs = state.plotters.filter(p => p.jobName === job.name)
   const unknownJobs = state.plotters.filter(p => !p.jobId).length
 
