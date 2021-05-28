@@ -16,7 +16,6 @@
   "dependencies": {
     "@types/jsonfile": "^6.0.0",
     "@types/semver": "7.3.6",
-    "drivelist": "9.2.4",
     "execa": "^5.0.0",
     "jsonfile": "^6.1.0",
     "semver": "7.3.5",
