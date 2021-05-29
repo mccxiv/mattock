@@ -23,12 +23,11 @@ export async function managerTick() {
   const phase1Count = state.plotters.filter(p => p.phase === 1).length
   if (phase1Count >= config.maxConcurrentPhase1) return
   config.jobs.forEach(job => {
-    if (configValid[job.name]) maybeSpawnPlotter(config, state, job)
+    if (configValid.jobs[job.name]) maybeSpawnPlotter(config, state, job)
   })
 }
 
 function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: MattockConfig['jobs'][number]) {
-
   const liveJobs = state.plotters.filter(p => p.jobName === job.name)
   const unknownJobs = state.plotters.filter(p => !p.jobId).length
 

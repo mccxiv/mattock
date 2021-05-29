@@ -15,7 +15,7 @@ export async function renderCli() {
   l('┠──────────────────────────────────────────────────────────────────────────────┨')
   activePlotters.forEach((plotter) => {
     if (plotter.jobId) {
-      o(`┃ ${plotter.pid}\t  ${plotter.phase}\t${plotter.progress}%\t${plotter.elapsed}\t${plotter.jobName}\t   ${plotter.jobId}`)
+      o(`┃ ${plotter.pid}\t  ${plotter.phase}\t${plotter.progress}%\t${plotter.elapsed || ''}\t${plotter.jobName}\t   ${plotter.jobId}`)
     } else {
       o(`┃ ${plotter.pid}\tNo info because it was started by another program`)
     }
@@ -66,8 +66,6 @@ export async function renderCli() {
     o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
-
-  // console.log(state.completed)
 }
 
 export function isJustCheckingVersion (): boolean {
