@@ -1,5 +1,5 @@
 import { getState, problems } from './state'
-import { VERSION } from '../constants'
+import { CONFIG_FILE, VERSION } from '../constants'
 import { groupRecent, padWithClosingLine, sToTime, tabsToSpaces } from './util'
 import { LogInfo } from '../types/types'
 
@@ -61,6 +61,7 @@ export async function renderCli() {
     problems.forEach(problem => {
       o(`┃ - ${problem}`)
     })
+    o(`┃ Config location: ${CONFIG_FILE}`)
     o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
