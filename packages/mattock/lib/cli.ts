@@ -61,7 +61,7 @@ export async function renderCli() {
     problems.forEach(problem => {
       o(`┃ - ${problem}`)
     })
-    o(`┃ Config location: ${CONFIG_FILE}`)
+    o(`┃ Config file: ${CONFIG_FILE}`)
     o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
