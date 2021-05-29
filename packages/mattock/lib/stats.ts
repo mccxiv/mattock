@@ -1,7 +1,11 @@
+import * as fs from 'fs'
+import * as path from 'path'
 import { readFileSync, writeFileSync } from 'jsonfile'
 import * as psList from 'ps-list'
 import { getPlotterProcesses } from './processes'
-import { STATS_FILE } from '../constants'
+import { LOGS_DIR, STATS_FILE } from '../constants'
+import { LogInfo } from '../types/types'
+import { getLogInfo } from './state'
 
 export async function recordProcessMetadataToFile(parentPid: number, jobId: string) {
   const plotters = await getPlotterProcesses()
@@ -32,4 +36,12 @@ export function getStats() {
 
 function saveStats(stats: object) {
   writeFileSync(STATS_FILE, stats, { spaces: 2 })
+}
+
+export function getCompletedJobs (): LogInfo[] {
+  return fs.readdirSync(LOGS_DIR)
+    .filter(fileName => fileName.endsWith('.log'))
+    .map(fileName => path.basename(fileName, path.extname(fileName)))
+    .map(getLogInfo)
+    .filter(logInfo => logInfo.endTime)
 }

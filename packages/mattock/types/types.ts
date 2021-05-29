@@ -1,5 +1,6 @@
 export interface PlottingState {
-  plotters: PlottingJob[]
+  plotters: PlottingJob[],
+  completed: LogInfo[]
 }
 
 export interface PlottingJob {
@@ -10,15 +11,18 @@ export interface PlottingJob {
   startTime?: string
   elapsed?: string
   endTime?: string
-  phase?: 1 | 2 | 3 | 4 | 5
+  phase: 1 | 2 | 3 | 4 | 5 | null
   progress?: number
 }
 
 export interface LogInfo {
-  startTime?: string
-  tmp?: string
-  maxMemoryMiB?: number
-  phase: 1 | 2 | 3 | 4 | 5
+  jobId: string
+  startTime: string | null
+  endTime: string | null
+  totalSeconds: number | null
+  tmp: string | null
+  bufferSize: number | null
+  phase: 1 | 2 | 3 | 4 | 5 | null
   p1Time?: number
   p2Time?: number
   p3Time?: number
