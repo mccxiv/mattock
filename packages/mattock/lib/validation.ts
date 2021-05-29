@@ -49,7 +49,7 @@ export function validateJob(job: MattockConfig['jobs'][number]): boolean {
   }
 
   if (Number(job.concurrent) < 1) {
-    problems.push(`Job ${job.name} has no concurrency set, it will not start any plotters`)
+    problems.push(`Job ${job.name} has a concurrency of 0, it will not start any plotters`)
   }
 
   return true
