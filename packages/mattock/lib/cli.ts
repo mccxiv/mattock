@@ -40,7 +40,8 @@ export async function renderCli() {
       grouped.forEach((group, i) => {
         if (group.length) {
           const avg = sToTime(averageTime(group))
-          o(`┃ ${dayMap[i]}: ${group.length} \t Average time: ${avg}`)
+          const day = `┃ ${dayMap[i]}: ${group.length}`.padEnd(24, ' ')
+          o(`${day}Average time: ${avg}`)
         }
       })
 
