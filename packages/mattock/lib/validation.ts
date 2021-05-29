@@ -1,17 +1,19 @@
-import { MattockConfig } from '../types/types'
+import { ConfigurationValidity, MattockConfig } from '../types/types'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as execa from 'execa'
 import * as semver from 'semver'
 import { problems } from './state'
 
-export async function isConfigValid(config: MattockConfig): Promise<boolean> {
-  const results: boolean[] = [
-    await validateExecutable(config.chiaExecutable),
-    ...(config.jobs.map(job => validateJob(job)))
-  ]
-
-  return results.every(res => res)
+export async function isConfigValid(config: MattockConfig): Promise<ConfigurationValidity> {
+  return {
+    global: await validateExecutable(config.chiaExecutable),
+    jobs: {
+      ...Object.assign({}, ...config.jobs.map(job => {
+        return {[job.name]: validateJob(job)}
+      }))
+    }
+  }
 }
 
 export function validateExecutable (executable: string): boolean {

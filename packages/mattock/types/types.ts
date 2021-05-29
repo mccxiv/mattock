@@ -47,3 +47,8 @@ export interface MattockConfig {
     "doNotWaitForPhase5": boolean
   }[]
 }
+
+export interface ConfigurationValidity {
+  global: boolean
+  jobs: {[key: string]: boolean}
+}

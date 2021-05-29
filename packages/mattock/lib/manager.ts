@@ -16,14 +16,14 @@ export async function managerTick() {
   const config = getConfig()
   if (!config) return
   const configValid = await isConfigValid(config)
-  if (!configValid) return
+  if (!configValid.global) return
 
   const state = await getState()
   if (plotters.length >= config.maxConcurrentGlobal) return
   const phase1Count = state.plotters.filter(p => p.phase === 1).length
   if (phase1Count >= config.maxConcurrentPhase1) return
   config.jobs.forEach(job => {
-    maybeSpawnPlotter(config, state, job)
+    if (configValid[job.name]) maybeSpawnPlotter(config, state, job)
   })
 }
 
