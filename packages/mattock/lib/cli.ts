@@ -1,6 +1,7 @@
 import { getState, problems } from './state'
 import { VERSION } from '../constants'
-import { padWithClosingLine, tabsToSpaces } from './util'
+import { groupRecent, padWithClosingLine, sToTime, tabsToSpaces } from './util'
+import { LogInfo } from '../types/types'
 
 export async function renderCli() {
   const state = await getState()
@@ -25,15 +26,45 @@ export async function renderCli() {
     o('┃')
   }
   o('┃')
+  if (state.completed.length) {
+    const grouped = groupRecent(state.completed)
+    const haveAnyRecent = grouped.some(group => group.length)
+    if (haveAnyRecent) {
+      const dayMap = {
+        '0': 'Today',
+        '1': 'Yesterday',
+        '2': 'Two days ago',
+        '3': 'Three days ago'
+      }
+      l('┠────── Completed: ────────────────────────────────────────────────────────────┨')
+      grouped.forEach((group, i) => {
+        if (group.length) {
+          const avg = sToTime(averageTime(group))
+          o(`┃ ${dayMap[i]}: ${group.length} \t Average time: ${avg}`)
+        }
+      })
+
+      o('┃')
+
+      function averageTime (logs: LogInfo[]): number {
+        const sum = logs.reduce((acc, curr) => {
+          if (curr.totalSeconds) acc += curr.totalSeconds
+          return acc
+        }, 0)
+        return Math.round(sum / logs.length)
+      }
+    }
+  }
   if (problems.length) {
     l('┠────── Issues: ───────────────────────────────────────────────────────────────┨')
     problems.forEach(problem => {
       o(`┃ - ${problem}`)
     })
+    o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
 
-  console.log(state.completed)
+  // console.log(state.completed)
 }
 
 export function isJustCheckingVersion (): boolean {

@@ -1,6 +1,6 @@
 import { readFileSync } from 'jsonfile'
 import { CONFIG_FILE } from '../constants'
-import { MattockConfig } from '../types/types'
+import { LogInfo, MattockConfig } from '../types/types'
 import { problems } from './state'
 
 export function generateJobIdentifier(job: any): string {
@@ -40,6 +40,17 @@ export function msToTime(duration) {
   const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
 
   return hours + ":" + minutesPadded
+}
+
+export function sToTime(duration) {
+  const seconds = Math.floor((duration) % 60)
+  const minutes = Math.floor((duration / 60) % 60)
+  const hours = Math.floor((duration / (60 * 60)) % 24)
+
+  const secondsPadded = (minutes < 10) ? "0" + seconds : seconds;
+  const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
+
+  return hours + ":" + minutesPadded + ":" + secondsPadded
 }
 
 /**
@@ -93,4 +104,32 @@ export function tabsToSpaces (data: string, tabSize : number = 8) {
 
 export function padWithClosingLine (str: string): string {
   return str.padEnd(79, ' ') + '┃'
+}
+
+export function groupRecent (logs: LogInfo[]): LogInfo[][] {
+  const today = new Date()
+  let yesterday = new Date()
+  let twoDaysAgo = new Date()
+  let threeDaysAgo = new Date()
+  yesterday.setDate(today.getDate() - 1)
+  twoDaysAgo.setDate(today.getDate() - 2)
+  threeDaysAgo.setDate(today.getDate() - 3)
+
+  const dates = [
+    today,
+    yesterday,
+    twoDaysAgo,
+    threeDaysAgo
+  ]
+  const asYYMMDD = dates.map(dateToYYMMDD)
+  return asYYMMDD.map(dateStr => {
+    return logs.filter(log => log.jobId.startsWith(dateStr))
+  })
+}
+
+function dateToYYMMDD(date: Date): string {
+  const YY = (date.getFullYear() + '').slice(2)
+  const MM = pad2(date.getMonth())
+  const DD = pad2(date.getDay())
+  return `${YY}${MM}${DD}`
 }
