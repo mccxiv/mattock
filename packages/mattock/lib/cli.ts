@@ -62,6 +62,7 @@ export async function renderCli() {
       o(`┃ - ${problem}`)
     })
     o(`┃ Config file: ${CONFIG_FILE}`)
+    o(`┃ Changes will be reloaded automatically`)
     o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
