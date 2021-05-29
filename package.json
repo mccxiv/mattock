@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w mattock",
+    "dev-prod": "npm run start -w mattock",
     "mattock-ui": "npm run dev -w mattock-ui"
   }
 }

@@ -11,7 +11,8 @@
     "mattock": "bin/mattock.js"
   },
   "scripts": {
-    "dev": "ts-node index.ts --dev"
+    "dev": "ts-node index.ts --dev",
+    "start": "ts-node index.ts"
   },
   "dependencies": {
     "@types/jsonfile": "^6.0.0",

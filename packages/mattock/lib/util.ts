@@ -7,8 +7,8 @@ export function generateJobIdentifier(job: any): string {
   const date = new Date()
 
   const YY = (date.getFullYear() + '').slice(2)
-  const MM = pad2(date.getMonth())
-  const DD = pad2(date.getDay())
+  const MM = pad2(date.getMonth()+1)
+  const DD = pad2(date.getDate())
   const hh = pad2(date.getHours())
   const mm = pad2(date.getMinutes())
   const ss = pad2(date.getSeconds())
@@ -127,7 +127,7 @@ export function groupRecent (logs: LogInfo[]): LogInfo[][] {
 
 function dateToYYMMDD(date: Date): string {
   const YY = (date.getFullYear() + '').slice(2)
-  const MM = pad2(date.getMonth())
-  const DD = pad2(date.getDay())
+  const MM = pad2(date.getMonth()+1)
+  const DD = pad2(date.getDate())
   return `${YY}${MM}${DD}`
 }
