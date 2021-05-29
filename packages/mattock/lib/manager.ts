@@ -15,7 +15,7 @@ export async function managerTick() {
   problems.splice(0)
   const config = getConfig()
   if (!config) return
-  const configValid = isConfigValid(config)
+  const configValid = await isConfigValid(config)
   if (!configValid) return
 
   const state = await getState()
