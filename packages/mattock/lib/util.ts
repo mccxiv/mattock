@@ -43,14 +43,12 @@ export function msToTime(duration) {
 }
 
 export function sToTime(duration) {
-  const seconds = Math.floor((duration) % 60)
   const minutes = Math.floor((duration / 60) % 60)
   const hours = Math.floor((duration / (60 * 60)) % 24)
 
-  const secondsPadded = (minutes < 10) ? "0" + seconds : seconds;
   const minutesPadded = (minutes < 10) ? "0" + minutes : minutes;
 
-  return hours + ":" + minutesPadded + ":" + secondsPadded
+  return hours + ":" + minutesPadded
 }
 
 /**
