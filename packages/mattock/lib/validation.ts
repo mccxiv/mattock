@@ -43,10 +43,10 @@ export function validateNonBlockers (config: MattockConfig) {
 export function validateJob(job: MattockConfig['jobs'][number]): boolean {
   if (job.k) {
     if (job.k < 25) {
-      problems.push(`Job '${job.name} is using k size < 25. This is not allowed`)
+      problems.push(`Job '${job.name}' is using k size < 25. This is not allowed`)
       return false
     } else if (job.k < 32) {
-      problems.push(`Job '${job.name} is using k size < 32. These plots will be invalid`)
+      problems.push(`Job '${job.name}' is using k size < 32. These plots will be invalid`)
     }
   }
 
