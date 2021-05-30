@@ -55,12 +55,14 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
     'plots', 'create',
     '-t', path.resolve(job.temporaryDirectory, `${jobId}`),
     '-d', path.resolve(job.destinationDirectory),
+    ...(job.k ? ['-k', job.k] : []),
     ...(job.maxThreads ? ['-r', String(job.maxThreads)] : []),
     ...(job.maxMemory ? ['-b', String(job.maxMemory)] : []),
     ...(job.disableBitfield ? ['-e'] : []),
     ...(config.farmerPublicKey ? ['-f', config.farmerPublicKey] : []),
     ...(config.poolPublicKey ? ['-p', config.poolPublicKey] : []),
     '-x',
+    '--override-k',
     '>', path.resolve(LOGS_DIR, `${jobId}.log`)
   ].join(' ')
 

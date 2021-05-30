@@ -41,6 +41,15 @@ export function validateNonBlockers (config: MattockConfig) {
 }
 
 export function validateJob(job: MattockConfig['jobs'][number]): boolean {
+  if (job.k) {
+    if (job.k < 25) {
+      problems.push(`Job '${job.name} is using k size < 25. This is not allowed`)
+      return false
+    } else if (job.k < 32) {
+      problems.push(`Job '${job.name} is using k size < 32. These plots will be invalid`)
+    }
+  }
+
   const nameRegex = /^[-_a-z0-9]{1,10}$/i
   if (!nameRegex.test(job.name)) {
     problems.push('Invalid job name. Rules: 1 to 10 characters, no symbols')
