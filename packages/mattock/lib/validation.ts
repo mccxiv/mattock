@@ -59,7 +59,7 @@ export function validateJob(job: MattockConfig['jobs'][number]): boolean {
   }
 
   if (Number(job.concurrent || 0) < 1) {
-    problems.push(`Option 'concurrency' on job '${job.name}' is 0 or missing`)
+    problems.push(`Option 'concurrent' on job '${job.name}' is 0 or missing`)
   }
 
   return true
