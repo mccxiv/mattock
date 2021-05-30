@@ -22,12 +22,15 @@ export async function managerTick() {
   if (plotters.length >= config.maxConcurrentGlobal) return
   const phase1Count = state.plotters.filter(p => p.phase === 1).length
   if (phase1Count >= config.maxConcurrentPhase1) return
-  config.jobs.forEach(job => {
-    if (configValid.jobs[job.name]) maybeSpawnPlotter(config, state, job)
+
+  // Spawn at most one job per tick. This is to keep concurrent count math safe
+  config.jobs.some(job => {
+    if (configValid.jobs[job.name]) return maybeSpawnPlotter(config, state, job)
+    else return false
   })
 }
 
-function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: MattockConfig['jobs'][number]) {
+function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: MattockConfig['jobs'][number]): boolean {
   const liveJobs = state.plotters.filter(p => p.jobName === job.name)
   const unknownJobs = state.plotters.filter(p => !p.jobId).length
 
@@ -44,7 +47,7 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
   // Clamp to 0 in case math got weird and went negative due to external jobs
   const freeSlots = Math.max(0, job.concurrent - currentJobsCalculated)
 
-  if (freeSlots <= 0) return
+  if (freeSlots <= 0) return false
 
   const jobId = generateJobIdentifier(job)
   const command = [
@@ -65,4 +68,6 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
     { cleanup: true, shell: true, detached: false }
   )
   setTimeout(() => recordProcessMetadataToFile(parentPid, jobId), 2000)
+
+  return true
 }
