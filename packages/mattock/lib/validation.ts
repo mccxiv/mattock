@@ -38,7 +38,6 @@ export function validateNonBlockers (config: MattockConfig) {
   if (!config.maxConcurrentPhase1) {
     problems.push('Option \'maxConcurrentPhase1\' is 0 or missing. No new jobs will start')
   }
-
 }
 
 export function validateJob(job: MattockConfig['jobs'][number]): boolean {
