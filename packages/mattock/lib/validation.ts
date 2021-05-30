@@ -6,6 +6,7 @@ import * as semver from 'semver'
 import { problems } from './state'
 
 export async function isConfigValid(config: MattockConfig): Promise<ConfigurationValidity> {
+  validateNonBlockers(config)
   return {
     global: await validateExecutable(config.chiaExecutable),
     jobs: {
@@ -30,6 +31,16 @@ export function validateExecutable (executable: string): boolean {
   }
 }
 
+export function validateNonBlockers (config: MattockConfig) {
+  if (!config.maxConcurrentGlobal) {
+    problems.push('Option \'maxConcurrentGlobal\' is 0 or missing. No new jobs will start')
+  }
+  if (!config.maxConcurrentPhase1) {
+    problems.push('Option \'maxConcurrentPhase1\' is 0 or missing. No new jobs will start')
+  }
+
+}
+
 export function validateJob(job: MattockConfig['jobs'][number]): boolean {
   const nameRegex = /^[-_a-z0-9]{1,10}$/i
   if (!nameRegex.test(job.name)) {
@@ -48,8 +59,8 @@ export function validateJob(job: MattockConfig['jobs'][number]): boolean {
     return false
   }
 
-  if (Number(job.concurrent) < 1) {
-    problems.push(`Job ${job.name} has a concurrency of 0, it will not start any plotters`)
+  if (Number(job.concurrent || 0) < 1) {
+    problems.push(`Option 'concurrency' on job '${job.name}' is 0 or missing`)
   }
 
   return true

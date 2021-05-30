@@ -61,8 +61,9 @@ export async function renderCli() {
     problems.forEach(problem => {
       o(`┃ - ${problem}`)
     })
+    o('┃')
     o(`┃ Config file: ${CONFIG_FILE}`)
-    o(`┃ Changes will be reloaded automatically`)
+    o(`┃ Changes are reloaded automatically`)
     o('┃')
   }
   l('┖──────────────────────────────────────────────────────────────────────────────┚')
