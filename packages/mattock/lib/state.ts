@@ -34,7 +34,7 @@ export async function getState(): Promise<PlottingState> {
         startTime: logInfo.startTime || undefined,
         elapsed: elapsedMs ? msToTime(elapsedMs) : undefined,
         phase: logInfo.phase,
-        progress: Math.round(((logInfo.lines / 2620) * 100) * 100) / 100
+        progress: Math.min(100, Math.round(((logInfo.lines / 2620) * 100) * 100) / 100)
       }
     })
 
