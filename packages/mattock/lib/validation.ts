@@ -21,12 +21,12 @@ export function validateExecutable (executable: string): boolean {
   try {
     const version = execa.sync(executable, ['version']).stdout
     if (!semver.valid(version)) {
-      problems.push('The chia executable is not valid. Check your config')
-      return false
+      problems.push('Chia version check failed. This may or may not be an issue')
     }
     return true
   } catch (e) {
-    console.log('Unknown error trying to get chia version')
+    problems.push('The chia executable is not valid. Check your config')
+    problems.push('Add the chia executable to your PATH or use an absolute file location')
     return false
   }
 }
