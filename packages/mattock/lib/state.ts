@@ -3,7 +3,7 @@ import {
   PlottingJob,
   PlottingState
 } from '../types/types'
-import { getConfig, msToTime } from './util'
+import { fullDateStrToYYMMDD, getConfig, msToTime } from './util'
 import { getPlotterProcesses } from './processes'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -60,6 +60,7 @@ export function getLogInfo(jobId: string): LogInfo {
   const lines = splitLines(log)
   const startTime = findStartTime(lines)
   const endTime = findEndTime(lines)
+  const endDate = fullDateStrToYYMMDD(endTime)
   const totalSeconds = findTotalSeconds(lines)
   const bufferSize = findBuffersize(lines)
   const tmpDir = findTempDirFromLog(lines)
@@ -70,6 +71,7 @@ export function getLogInfo(jobId: string): LogInfo {
     jobId,
     startTime,
     endTime,
+    endDate,
     totalSeconds,
     bufferSize,
     tmp: tmpDir,

@@ -19,6 +19,7 @@ export interface LogInfo {
   jobId: string
   startTime: string | null
   endTime: string | null
+  endDate: string | null
   totalSeconds: number | null
   tmp: string | null
   bufferSize: number | null

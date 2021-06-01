@@ -121,8 +121,13 @@ export function groupRecent (logs: LogInfo[]): LogInfo[][] {
   ]
   const asYYMMDD = dates.map(dateToYYMMDD)
   return asYYMMDD.map(dateStr => {
-    return logs.filter(log => log.jobId.startsWith(dateStr))
+    return logs.filter(log => log.endDate?.startsWith(dateStr))
   })
+}
+
+export function fullDateStrToYYMMDD (dateStr) {
+  const date = new Date(dateStr)
+  return dateToYYMMDD(date)
 }
 
 function dateToYYMMDD(date: Date): string {
