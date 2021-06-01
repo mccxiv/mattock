@@ -1,6 +1,10 @@
-export interface PlottingState {
+export interface MattockState {
   plotters: PlottingJob[],
   completed: LogInfo[]
+  os: {
+    cpu: {percentage: number, name: string}
+    memory: {percentage: number, total: number}
+  }
 }
 
 export interface PlottingJob {

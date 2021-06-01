@@ -1,18 +1,19 @@
 import {
   LogInfo,
   PlottingJob,
-  PlottingState
+  MattockState
 } from '../types/types'
 import { getConfig, msToTime } from './util'
 import { getPlotterProcesses } from './processes'
 import * as path from 'path'
 import * as fs from 'fs'
+import * as os from 'os'
 import { getCompletedJobs, getStats } from './stats'
 import { LOGS_DIR } from '../constants'
 
 export const problems: string[] = []
 
-export async function getState(): Promise<PlottingState> {
+export async function getState(): Promise<MattockState> {
   const config = getConfig()
   const stats = getStats()
   const knownPids = Object.keys(stats.processes)
@@ -50,7 +51,8 @@ export async function getState(): Promise<PlottingState> {
 
   return {
     plotters: [...plotters, ...unknown],
-    completed: getCompletedJobs()
+    completed: getCompletedJobs(),
+    os: await getOsState()
   }
 }
 
@@ -137,4 +139,38 @@ function findCurrentPhase (lines: string[]): 1 | 2 | 3 | 4 | 5 | null {
 
 function splitLines (str: string): string[] {
   return str.split('\n')
+}
+
+async function getOsState (): Promise<MattockState['os']> {
+  const totalMem = os.totalmem()
+  const cpuPercent = await getCpuUsagePercent()
+  const memPercent = 100 - ((os.freemem() / os.totalmem()) * 100)
+  const memGb = Math.round(totalMem / (1024 * 1024 * 1024))
+  const cpuName =
+  return {} as any
+}
+
+async function getCpuUsagePercent () {
+  const stats1 = getCpuUsageStatsSinceBoot()
+  await new Promise(resolve => setTimeout(resolve, 100))
+  const stats2 = getCpuUsageStatsSinceBoot()
+  const idle = stats2.idle - stats1.idle
+  const total = stats2.total - stats1.total
+  return 100 - ((idle / total) * 100)
+}
+
+function getCpuUsageStatsSinceBoot () {
+  let totalIdle = 0
+  let totalTick = 0
+  let cpus = os.cpus()
+
+  for (let i = 0, len = cpus.length; i < len; i++) {
+    let cpu = cpus[i]
+    for (let type in cpu.times) {
+      totalTick += cpu.times[type]
+    }
+    totalIdle += cpu.times.idle
+  }
+
+  return {idle: totalIdle, total: totalTick}
 }
