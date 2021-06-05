@@ -70,6 +70,8 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
     command,
     { cleanup: true, shell: true, detached: false }
   )
+  if (!parentPid) return false
+
   setTimeout(() => recordProcessMetadataToFile(parentPid, jobId), 2000)
 
   return true
