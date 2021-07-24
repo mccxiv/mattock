@@ -38,6 +38,12 @@ export function validateNonBlockers (config: MattockConfig) {
   if (!config.maxConcurrentPhase1) {
     problems.push('Option \'maxConcurrentPhase1\' is 0 or missing. No new jobs will start')
   }
+  if (!config.farmerPublicKey) {
+    problems.push('You did not provide a farmer public key. It is recommended to add one')
+  }
+  if (!config.contractAddress) {
+    problems.push('You did not provide an NFT contract address. Plots will not be poolable')
+  }
 }
 
 export function validateJob(job: MattockConfig['jobs'][number]): boolean {

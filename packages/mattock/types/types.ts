@@ -36,7 +36,7 @@ export interface MattockConfig {
   maxConcurrentGlobal: number
   maxConcurrentPhase1: number
   farmerPublicKey: string | null
-  poolPublicKey: string |null
+  contractAddress: string | null
   jobs: {
     name: string
     k: number

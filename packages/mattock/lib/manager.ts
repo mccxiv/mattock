@@ -60,7 +60,7 @@ function maybeSpawnPlotter(config: MattockConfig, state: PlottingState, job: Mat
     ...(job.maxMemory ? ['-b', String(job.maxMemory)] : []),
     ...(job.disableBitfield ? ['-e'] : []),
     ...(config.farmerPublicKey ? ['-f', config.farmerPublicKey] : []),
-    ...(config.poolPublicKey ? ['-p', config.poolPublicKey] : []),
+    ...(config.contractAddress ? ['-c', config.contractAddress] : []),
     '-x',
     '--override-k',
     '>', path.resolve(LOGS_DIR, `${jobId}.log`)
